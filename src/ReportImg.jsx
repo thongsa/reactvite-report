@@ -19,6 +19,9 @@ const ExportExcelWithImage = () => {
     //   { header: 'Age', key: 'age', width: 10 },
     //   { header: 'Country', key: 'country', width: 30 },
     // ];
+    // Set print paper size (this is where you'd set A4)
+    // A4 corresponds to value 9 in Excel
+    worksheet.pageSetup.paperSize = 9;
     // Add logo image
     worksheet.addImage(imageId, {
       tl: { col: 0, row: 0 },
@@ -53,33 +56,35 @@ const ExportExcelWithImage = () => {
       underline: false,
     };
     // Define the data to be added
-const data = [
-  [1,'iPhone 14', 999, 50],
-  [2,'Galaxy S22', 799, 30],
-  [3,'Pixel 7', 599, 20],
-  [4,'Pixel 7', 599, 20],
-  [5,'Pixel 7', 599, 20],
-];
-// Add rows in a loop
-data.forEach(rowData => {
-  worksheet.addRow(rowData); // Add each row to the worksheet
-});
-// Apply borders to all cells in all rows
-worksheet.eachRow((row, rowNumber) => {
-  if (rowNumber !== 1) {
-    row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
-      cell.border = {
-        top: { style: 'thin' },
-        left: { style: 'thin' },
-        bottom: { style: 'thin' },
-        right: { style: 'thin' }
-      };
+    const data = [
+      [1, 'iPhone 14', 999, 50],
+      [2, 'Galaxy S22', 799, 30],
+      [3, 'Pixel 7', 599, 20],
+      [4, 'Pixel 7', 599, 20],
+      [5, 'Pixel 7', 599, 20],
+      [6, 'Iphone16', 599, 20],
+    ];
+    // Add rows in a loop
+    data.forEach(rowData => {
+      worksheet.addRow(rowData); // Add each row to the worksheet
     });
-  }
-});
-worksheet.addRow([]); 
-worksheet.addRow([]); 
-worksheet.addRow(['', 'signature02', '', 'signature01']);
+    // Apply borders to all cells in all rows
+    worksheet.eachRow((row, rowNumber) => {
+      if (rowNumber !== 1) {
+        row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+          cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' }
+          };
+          cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        });
+      }
+    });
+    worksheet.addRow([]);
+    worksheet.addRow([]);
+    worksheet.addRow(['', 'signature02', '', 'signature01']);
 
     // add a column of new values
     worksheet.getColumn(1).width = 7;
@@ -89,12 +94,11 @@ worksheet.addRow(['', 'signature02', '', 'signature01']);
     worksheet.getColumn(1).alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getColumn(3).alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getColumn(4).alignment = { vertical: 'middle', horizontal: 'center' };
-    
+
     // Set height for multiple rows (e.g., rows 1, 2, and 3)
-    const rowsToSet = [4, 5, 6]; // Array of row numbers
     const height = 25; // Desired height in points
-    rowsToSet.forEach((rowNumber) => {
-      const row = worksheet.getRow(rowNumber);
+    data.forEach((rowNumber, index) => {
+      const row = worksheet.getRow(index + 4);
       row.height = height;
     });
 
