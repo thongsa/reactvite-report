@@ -28,41 +28,41 @@ const ExportExcelWithImage = () => {
       ext: { width: 50, height: 50 }
     });
     // Add_Edit_Cell
-    worksheet.getCell('D1').value = 'Employee';
+    worksheet.getCell('E2').value = 'Customer: General';
+    worksheet.mergeCells('E2:F2');
+    worksheet.getCell('E3').value = 'Date: 18/10/2024';
+    worksheet.mergeCells('E3:F3');
     // Set font for specific cell
-    worksheet.getCell('D1').font = {
-      name: 'Arial',
-      size: 14,
-      bold: true,
-      color: { argb: 'FF0000FF' },  // Blue color
-      underline: false,
-    };
+    // worksheet.getCell('E1').font = {
+    //   name: 'Arial',
+    //   size: 14,
+    //   bold: true,
+    //   color: { argb: 'FF0000FF' },  // Blue color
+    //   underline: false,
+    // };
+    worksheet.getCell('A2').value = 'ຮ້ານ NASA Phone';
+    worksheet.getCell('A3').value = 'ເບີໂທ: 020123456789';
+    worksheet.getCell('A4').value = 'Whatapps: 020987654321';
+    worksheet.getCell('A5').value = 'Villae,District,Province';
+
     worksheet.addRow([]);  // First row is blank
-    worksheet.addRow(['ລະຫັດ', 'ຊື່ ແລະ ນາມສະກຸນ', 'ອາຍຸ', 'ປະເທດ']); // Header row
+    worksheet.addRow(['ລະຫັດ','ສິນຄ້າ','ລະຫັດເຄື່ອງ','ຈຳນວນ','ລວມ','ປະກັນ']); // Header row
     // Set font for specific cell
-    worksheet.getColumn(2).font = {
+    worksheet.getColumn(1,2).font = {
       name: 'Phetsarath ot',
       size: 12,
       bold: false,
       color: { argb: '#000000' },  // Blue color
       underline: false,
     };
-    // Set font for specific cell
-    worksheet.getRow(3).font = {
-      name: 'Phetsarath ot',
-      size: 12,
-      bold: true,
-      color: { argb: '#000000' },  // Blue color
-      underline: false,
-    };
     // Define the data to be added
     const data = [
-      [1, 'iPhone 14', 999, 50],
-      [2, 'Galaxy S22', 799, 30],
-      [3, 'Pixel 7', 599, 20],
-      [4, 'Pixel 7', 599, 20],
-      [5, 'Pixel 7', 599, 20],
-      [6, 'Iphone16', 599, 20],
+      [1, 'iPhone 14','34541625232247',1, 2000000, 1],
+      [2, 'Galaxy S22','34541625232247',1, 2000000, 1],
+      [3, 'Pixel 7','34541625232247',1, 2000000, 1],
+      [4, 'Pixel 7','34541625232247',1, 2000000, 1],
+      [5, 'Pixel 7','34541625232247',1, 2000000, 1],
+      [6, 'Iphone16','34541625232247',1, 2000000, 1],
     ];
     // Add rows in a loop
     data.forEach(rowData => {
@@ -70,7 +70,7 @@ const ExportExcelWithImage = () => {
     });
     // Apply borders to all cells in all rows
     worksheet.eachRow((row, rowNumber) => {
-      if (rowNumber !== 1) {
+      if (rowNumber >=7) {
         row.eachCell({ includeEmpty: true }, (cell, colNumber) => {
           cell.border = {
             top: { style: 'thin' },
@@ -83,22 +83,23 @@ const ExportExcelWithImage = () => {
       }
     });
     worksheet.addRow([]);
-    worksheet.addRow([]);
-    worksheet.addRow(['', 'signature02', '', 'signature01']);
+    worksheet.addRow(['', '', '', '', 'Date/Time:...................','']).alignment = { vertical: 'middle', horizontal: 'left' };
+    worksheet.addRow(['', 'signature02', '', '', 'signature01','']);
 
     // add a column of new values
     worksheet.getColumn(1).width = 7;
     worksheet.getColumn(1).height = 20;
-    worksheet.getColumn(2).width = 40;
-    worksheet.getColumn(4).width = 40;
-    worksheet.getColumn(1).alignment = { vertical: 'middle', horizontal: 'center' };
+    worksheet.getColumn(2).width = 25;
+    worksheet.getColumn(3).width = 18;
+    worksheet.getColumn(5).width = 18;
+    // worksheet.getColumn(1).alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getColumn(3).alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getColumn(4).alignment = { vertical: 'middle', horizontal: 'center' };
 
     // Set height for multiple rows (e.g., rows 1, 2, and 3)
     const height = 25; // Desired height in points
     data.forEach((rowNumber, index) => {
-      const row = worksheet.getRow(index + 4);
+      const row = worksheet.getRow(index + 8);
       row.height = height;
     });
 
@@ -106,9 +107,16 @@ const ExportExcelWithImage = () => {
     // worksheet.mergeCells('A1:E5');
     // Add_Edit_Row
     worksheet.getRow(1).height = 40;
-    worksheet.getRow(3).height = 30;
-    worksheet.getRow(3).alignment = { vertical: 'middle', horizontal: 'center' };
     worksheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center' };
+    worksheet.getRow(7).height = 30;
+    worksheet.getRow(7).alignment = { vertical: 'middle', horizontal: 'center' };
+    worksheet.getRow(7).font = {
+      name: 'Phetsarath ot',
+      size: 12,
+      bold: true,
+      color: { argb: '#000000' },  // Blue color
+      underline: false,
+    };
     // Add image background to worksheet
     // worksheet.addBackgroundImage(imageId);
 
